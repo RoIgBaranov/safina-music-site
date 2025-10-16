@@ -41,7 +41,7 @@ export default function TeachersPage() {
 
       <div className="mt-8 grid sm:grid-cols-2 gap-6">
         {teachers.map((t) => (
-          <article key={t.name} className="card hover:-translate-y-0.5 transition">
+          <article key={t.name} className="card card--tint lift">
             <div className="flex gap-4">
               {/* Фото или заглушка */}
               {t.photo ? (

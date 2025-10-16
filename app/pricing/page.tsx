@@ -47,7 +47,7 @@ export default function PricingPage() {
       {/* Тарифы */}
       <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tariffs.map((t) => (
-          <div key={t.title} className="card hover:-translate-y-0.5 transition">
+          <div key={t.title} className="card card--tint lift">
             <h3 className="font-semibold">{t.title}</h3>
             <p className="text-2xl font-extrabold mt-2">{t.price}</p>
             <p className="text-gray-600">{t.desc}</p>

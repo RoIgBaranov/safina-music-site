@@ -43,7 +43,7 @@ export default function DirectionsPage() {
           <Link
             key={i.slug}
             href={`/directions/${i.slug}`}
-            className="card hover:shadow-md hover:-translate-y-0.5 transition"
+            className="card card--tint lift hover:shadow-md"
           >
             <h3 className="font-semibold">{i.title}</h3>
             <p className="text-gray-600 mt-1">{i.desc}</p>

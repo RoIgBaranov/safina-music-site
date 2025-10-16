@@ -17,7 +17,7 @@ export default function VocalKidsPage() {
 
       {/* Что получите */}
       <div className="grid md:grid-cols-2 gap-6 mt-8">
-        <div className="card hover:-translate-y-0.5 transition">
+        <div className="card card--tint lift">
           <h2 className="font-semibold">Что ребёнок получит за 8 занятий</h2>
           <ul className="list-disc pl-5 text-gray-700 mt-2 space-y-1">
             <li>Понимание правильного дыхания без зажимов</li>
@@ -28,7 +28,7 @@ export default function VocalKidsPage() {
         </div>
 
         {/* Пробный урок */}
-        <div className="card hover:-translate-y-0.5 transition">
+        <div className="card card--tint lift">
           <h2 className="font-semibold">Как проходит пробный урок</h2>
           <ol className="list-decimal pl-5 text-gray-700 mt-2 space-y-1">
             <li>Короткое знакомство: цель, любимые песни</li>
@@ -40,7 +40,7 @@ export default function VocalKidsPage() {
       </div>
 
       {/* Форматы и цены */}
-      <div className="card hover:-translate-y-0.5 transition mt-8">
+      <div className="card card--tint lift">
         <h2 className="font-semibold">Форматы и цены</h2>
         <div className="grid sm:grid-cols-3 gap-4 mt-2">
           <div>
@@ -62,7 +62,7 @@ export default function VocalKidsPage() {
       </div>
 
       {/* FAQ */}
-      <div className="card hover:-translate-y-0.5 transition mt-8">
+      <div className="card card--tint lift">
         <h2 className="font-semibold">Частые вопросы</h2>
         <div className="mt-3 grid md:grid-cols-2 gap-4">
           <div>

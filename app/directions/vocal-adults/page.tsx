@@ -16,7 +16,7 @@ export default function VocalAdultsPage() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 mt-8">
-        <div className="card hover:-translate-y-0.5 transition">
+        <div className="card card--tint lift">
           <h2 className="font-semibold">Результаты за 8 занятий</h2>
           <ul className="list-disc pl-5 text-gray-700 mt-2 space-y-1">
             <li>Осознанное дыхание и базовая техника</li>
@@ -25,7 +25,7 @@ export default function VocalAdultsPage() {
             <li>Мини-выступление или запись видео</li>
           </ul>
         </div>
-        <div className="card hover:-translate-y-0.5 transition">
+        <div className="card card--tint lift">
           <h2 className="font-semibold">Пробный урок</h2>
           <ol className="list-decimal pl-5 text-gray-700 mt-2 space-y-1">
             <li>Диагностика дыхания и диапазона</li>
@@ -36,7 +36,7 @@ export default function VocalAdultsPage() {
         </div>
       </div>
 
-      <div className="card hover:-translate-y-0.5 transition mt-8">
+      <div className="card card--tint lift">
         <h2 className="font-semibold">Форматы и цены</h2>
         <div className="grid sm:grid-cols-3 gap-4 mt-2">
           <div><div className="font-semibold">Пробный</div><div className="text-2xl font-extrabold">₪90</div><div className="text-gray-600">30–45 минут</div></div>
@@ -45,7 +45,7 @@ export default function VocalAdultsPage() {
         </div>
       </div>
 
-      <div className="card hover:-translate-y-0.5 transition mt-8">
+      <div className="card card--tint lift">
         <h2 className="font-semibold">Частые вопросы</h2>
         <div className="mt-3 grid md:grid-cols-2 gap-4">
           <div><div className="font-medium">«У меня нет слуха» — это проблема?</div><p className="text-gray-700 mt-1">Нет. Начинаем с простых упражнений и движемся шаг за шагом.</p></div>

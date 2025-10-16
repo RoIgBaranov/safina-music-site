@@ -47,3 +47,107 @@ body {
   @apply rounded-2xl border p-5;
 }
 
+.container-max {
+  /* ширина контента и центрирование */
+  max-width: 72rem; /* ≈ Tailwind max-w-6xl */
+  margin-inline: auto;
+
+  /* адаптивные боковые поля: 16px → 32px в зависимости от экрана */
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* Красивый фон для всего приложения */
+.bg-app {
+  /* слой 1: радиальные «пятна» (фиолет/розовый, очень нежно) */
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, #7c3aed22, transparent 60%),
+    radial-gradient(900px 500px at 110% 20%, #ec489922, transparent 60%),
+    /* слой 2: едва заметная сетка точек */
+    radial-gradient(circle at 1px 1px, #ffffff07 1px, transparent 0),
+    /* слой 3: общий вертикальный градиент (тёмный, благородный) */
+    linear-gradient(180deg, #0f1120 0%, #0f1120 40%, #15172b 100%);
+  background-size:
+    auto,
+    auto,
+    16px 16px,
+    auto;
+  background-position:
+    center,
+    center,
+    0 0,
+    0 0;
+}
+
+/* === Кнопки === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1.25rem; /* ~ px-5 py-3 */
+  border-radius: 0.75rem;   /* ~ rounded-xl */
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .12s ease, opacity .2s ease, filter .2s ease;
+  will-change: transform;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* градиентная главная кнопка */
+.btn-primary {
+  color: white;
+  background-image: linear-gradient(90deg, #7c3aed, #ec4899);
+  box-shadow:
+    0 10px 25px -10px #7c3aed44,
+    0 8px 18px -12px #ec489944;
+}
+
+/* контурная вторичная */
+.btn-outline {
+  color: inherit;
+  border: 1px solid #5b5f86;
+  background: linear-gradient(180deg, #1a1d33, #15172b);
+}
+.btn-outline:hover { border-color: #7a80b3; }
+
+/* Спокойная primary-кнопка (индиго/синий) с мягким «переливом» */
+.btn-primary-calm {
+  color: #fff;
+  background-image: linear-gradient(90deg, #4f46e5, #3b82f6); /* indigo→blue */
+  background-size: 200% 100%; /* чтобы был запас для анимации */
+  box-shadow: 0 10px 25px -12px rgba(79, 70, 229, 0.35);
+}
+.btn-primary-calm:hover {
+  animation: btnShift 1.2s ease-in-out infinite alternate; /* мягкий перелив */
+}
+
+/* улучшенная видимость фокуса для всех .btn */
+.btn:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.45); /* голубое кольцо */
+}
+
+/* ключевые кадры для «перелива» */
+@keyframes btnShift {
+  from { background-position:   0% 0; }
+  to   { background-position: 100% 0; }
+}
+
+/* Мягкая подцветка карточек + лёгкий подъём */
+.card--tint {
+  background:
+    radial-gradient(600px 200px at 0% 0%, rgba(124, 58, 237, 0.08), transparent 60%),
+    radial-gradient(600px 200px at 100% 100%, rgba(59, 130, 246, 0.08), transparent 60%),
+    var(--surface);
+  border-color: #2e3353; /* чуть светлее обычной границы */
+}
+
+.lift { 
+  transition: transform .15s ease, box-shadow .2s ease;
+  will-change: transform;
+}
+.lift:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 16px 40px -22px #0008;
+}
