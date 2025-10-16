@@ -1,103 +1,169 @@
+import Link from "next/link";
 import Image from "next/image";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main>
+      {/* ===== HERO ===== */}
+      <section className="bg-gradient-to-b from-purple-50 to-white">
+        <div className="container-max py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+          {/* Левая колонка: текст и кнопки */}
+          <div>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+              Музыкальная школа в&nbsp;Холоне —{" "}
+              <span className="text-[var(--brand)]">вокал</span>, фортепиано, гитара
+            </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <p className="mt-4 text-lg text-gray-600">
+              Для детей и взрослых. Дружелюбная атмосфера, сцена и концерты.
+              Пробный урок — запишитесь за 1 минуту.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link
+                href="/directions"
+                className="rounded-xl px-5 py-3 border hover:bg-[var(--brand)] hover:text-white transition"
+              >
+                Направления
+              </Link>
+
+              <Link
+                href="/pricing"
+                className="rounded-xl px-5 py-3 text-white hover:opacity-90 transition"
+                style={{ backgroundColor: "var(--brand)" }}
+              >
+                Цены и запись
+              </Link>
+            </div>
+
+            <ul className="mt-6 grid gap-2 text-gray-600">
+              <li>• 4 кабинета + зал для выступлений</li>
+              <li>• Индивидуально и мини-группы</li>
+              <li>• 30+ учеников, регулярные концерты</li>
+            </ul>
+          </div>
+
+          {/* Правая колонка: место под фото зала/класса (заменишь на <img .../>) */}
+          <div className="relative aspect-[4/3]">
+  <Image
+    src="/images/hall.jpg"   // положи файл в public/images
+    alt="Зал школы"
+    fill
+    className="object-cover rounded-2xl"
+    sizes="(min-width: 768px) 50vw, 100vw"
+    priority
+  />
+</div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* ===== ДЛЯ КОГО ===== */}
+      <section>
+        <div className="container-max py-14">
+          <h2 className="section-title">Для кого подойдёт</h2>
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: "Дети 5–7", text: "Играем и поём, ставим дыхание мягко." },
+              { title: "Дети 8–12", text: "Раскрываем голос, снимаем зажимы." },
+              { title: "Подростки", text: "Подготовка к сцене/конкурсам." },
+              { title: "Взрослые", text: "С нуля и для души, любимые песни." },
+            ].map((c) => (
+              <div key={c.title} className="card hover:-translate-y-0.5 transition">
+                <h3 className="font-semibold">{c.title}</h3>
+                <p className="text-gray-600 mt-2">{c.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== ПРЕПОДАВАТЕЛИ (превью) ===== */}
+      <section className="bg-gray-50">
+        <div className="container-max py-14">
+          <h2 className="section-title">Преподаватели</h2>
+          <p className="text-gray-600 mt-2">Бережный подход, техника без зажимов, сцена.</p>
+
+          <div className="mt-6 grid sm:grid-cols-2 gap-6">
+            {/* Карточка 1 — подставим реальное имя и факты позже */}
+            <div className="card hover:-translate-y-0.5 transition flex gap-4">
+              {/* Заглушка для фото */}
+              <div className="w-24 h-24 rounded-xl bg-gray-200 shrink-0" />
+              {/* Вместо этого:
+                <img src="/images/maria.jpg" alt="Мария Баранова" className="w-24 h-24 rounded-xl object-cover" />
+              */}
+              <div>
+                <h3 className="font-semibold">Мария Баранова</h3>
+                <p className="text-gray-600 text-sm mt-1">
+                  Педагог по вокалу. 8+ лет практики. Подготовка к сцене.
+                </p>
+                <Link href="/teachers" className="text-[var(--brand)] text-sm mt-2 inline-block">
+                  Подробнее →
+                </Link>
+              </div>
+            </div>
+
+            {/* Карточка 2 — второй педагог/направление */}
+            <div className="card hover:-translate-y-0.5 transition flex gap-4">
+              <div className="w-24 h-24 rounded-xl bg-gray-200 shrink-0" />
+              <div>
+                <h3 className="font-semibold">Педагог 2</h3>
+                <p className="text-gray-600 text-sm mt-1">
+                  Вокал/фортепиано/гитара — адаптация под цель ученика.
+                </p>
+                <Link href="/teachers" className="text-[var(--brand)] text-sm mt-2 inline-block">
+                  Подробнее →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== ЦЕНЫ (превью) ===== */}
+      <section>
+        <div className="container-max py-14">
+          <h2 className="section-title">Цены и форматы</h2>
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "Пробный урок", price: "₪90", desc: "30–45 минут" },
+              { title: "Индивидуальный", price: "₪180", desc: "45–60 минут" },
+              { title: "Мини-группа", price: "₪120", desc: "за человека" },
+            ].map((p) => (
+              <div key={p.title} className="card hover:-translate-y-0.5 transition">
+                <h3 className="font-semibold">{p.title}</h3>
+                <p className="text-2xl font-extrabold mt-2">{p.price}</p>
+                <p className="text-gray-600">{p.desc}</p>
+                <Link
+                  href="/pricing"
+                  className="mt-4 inline-block rounded-xl px-4 py-2 text-white"
+                  style={{ backgroundColor: "var(--brand)" }}
+                >
+                  Записаться
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== КАРТА ===== */}
+      <section className="bg-gray-50">
+        <div className="container-max py-14">
+          <h2 className="section-title">Как нас найти</h2>
+          <p className="text-gray-600 mt-2">Холон, рядом с удобной парковкой.</p>
+
+          <div className="mt-6 rounded-2xl overflow-hidden border">
+            {/* ЗАМЕНИ src на ваш адрес (Google Maps → Поделиться → Встроить карту → скопируй <iframe ...>) */}
+      
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3383.098788805216!2d34.797980599999995!3d32.0124376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b4c6add71da9%3A0xd339b217ec4083c2!2sHaOrgim%201%2C%20Holon!5e0!3m2!1sru!2sil!4v1760587861679!5m2!1sru!2sil" 
+              height="360"
+              className="w-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

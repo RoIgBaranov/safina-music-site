@@ -1,17 +1,25 @@
+/* Подключаем Tailwind v4 */
 @import "tailwindcss";
 
+/* ---- Тема (переменные бренда, шрифты и т.п.) ---- */
 :root {
+  --brand: #7c3aed; /* наш фирменный фиолетовый */
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* Вариант оформления темы через @theme (новое в v4) */
 @theme inline {
+  --color-brand: var(--brand);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Если в проекте есть шрифты, можно указать:
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  */
 }
 
+/* Тёмная тема по системным настройкам (опционально) */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +27,23 @@
   }
 }
 
+/* Базовые стили страницы */
+html, body {
+  height: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Заголовки секций, чтобы не повторяться */
+.section-title {
+  @apply text-2xl md:text-3xl font-bold;
+}
+
+/* Карточка со стандартной рамкой и скруглением */
+.card {
+  @apply rounded-2xl border p-5;
+}
+
