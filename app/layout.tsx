@@ -2,6 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Manrope } from "next/font/google";
+import ScrollTop from "@/components/ScrollTop";
+import SmoothFAQ from "@/components/SmoothFAQ";
+
+const manrope = Manrope({
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Safina — музыкальная школа в Холоне | Вокал, фортепиано, гитара",
@@ -9,8 +19,7 @@ export const metadata: Metadata = {
     "Уроки для детей и взрослых. Дружелюбная атмосфера, сцена и концерты. Пробный урок — запишитесь за 1 минуту.",
   openGraph: {
     title: "Safina — музыкальная школа в Холоне",
-    description:
-      "Вокал, фортепиано, гитара. Пробный урок уже на этой неделе.",
+    description: "Вокал, фортепиано, гитара. Пробный урок уже на этой неделе.",
     type: "website",
     url: "https://example.com", // заменишь после деплоя
   },
@@ -24,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className="min-h-screen flex flex-col bg-app">
+      <body className={`min-h-screen flex flex-col bg-app ${manrope.variable}`}>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
@@ -47,6 +56,8 @@ export default function RootLayout({
             }),
           }}
         />
+        <SmoothFAQ />
+        <ScrollTop />
       </body>
     </html>
   );

@@ -15,6 +15,9 @@ export default function ContactForm() {
   const [course, setCourse] = useState("Вокал");
   const [msg, setMsg] = useState("");
 
+  const [touched, setTouched] = useState(false);
+  const hasError = touched && name.trim() === "";
+
   const message = useMemo(() => {
     const parts = [
       `Привет! Меня зовут ${name || "___"}.`,
@@ -26,22 +29,31 @@ export default function ContactForm() {
     return parts.join(" ");
   }, [name, age, course, msg]);
 
-  const waLink = useMemo(() => buildWhatsAppLink(phone, message), [phone, message]);
+  const waLink = useMemo(
+    () => buildWhatsAppLink(phone, message),
+    [phone, message]
+  );
 
   return (
-    <div className="mt-6 grid gap-4 max-w-2xl">
+    <div className="grid gap-4">
       <input
-        className="border rounded-xl px-4 py-3"
-        placeholder="Имя родителя / ученика"
+        className={`input ${hasError ? "input--error" : ""}`}
+        placeholder="Имя родителя / ученика *"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => {
+          setName(e.target.value);
+          if (touched) setTouched(false);
+        }}
+        aria-label="Имя"
+        required
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <select
-          className="border rounded-xl px-4 py-3"
+          className="input"
           value={course}
           onChange={(e) => setCourse(e.target.value)}
+          aria-label="Направление"
         >
           <option>Вокал</option>
           <option>Фортепиано</option>
@@ -49,30 +61,44 @@ export default function ContactForm() {
         </select>
 
         <input
-          className="border rounded-xl px-4 py-3"
+          className="input"
           placeholder="Возраст (если ребёнок)"
           value={age}
           onChange={(e) => setAge(e.target.value)}
+          aria-label="Возраст"
+          inputMode="numeric"
         />
       </div>
 
       <textarea
-        className="border rounded-xl px-4 py-3"
+        className="input textarea"
         placeholder="Пожелания по времени / цели занятий"
         rows={4}
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
+        aria-label="Комментарий"
       />
 
+      {/* Кнопка — как раньше */}
       <a
-        href={waLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-2 inline-block rounded-xl px-6 py-3 text-white text-center hover:opacity-90 transition"
-        style={{ backgroundColor: "var(--brand)" }}
+        href={name.trim() ? waLink : undefined}
+        onClick={(e) => {
+          if (!name.trim()) {
+            e.preventDefault();
+            setTouched(true);
+          }
+        }}
+        className="mt-2 inline-block rounded-xl px-6 py-3 text-white text-center hover:opacity-90 transition btn btn-primary-calm"
+        aria-disabled={!name.trim()}
+        role="button"
       >
         Отправить в WhatsApp
       </a>
+
+      {/* Простая подсказка под формой */}
+      <p className="text-muted text-sm">
+        Поле «Имя» обязательно — это поможет быстрее связаться с вами.
+      </p>
     </div>
   );
 }

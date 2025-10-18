@@ -3,9 +3,14 @@
 
 /* ---- Тема (переменные бренда, шрифты и т.п.) ---- */
 :root {
-  --brand: #7c3aed; /* наш фирменный фиолетовый */
-  --background: #ffffff;
-  --foreground: #171717;
+  /* дефолт — ТЁМНАЯ тема */
+  --background: #0f1120;
+  --foreground: #e7e9ff;
+  --surface:    #141733;
+  --border:     #22263f;
+  --brand:      #8aa4ff;   /* спокойный голубой */
+  --brand-weak: #6d86e6;   /* чуть темнее для hover/границ */
+  --muted:      #b9bbd0;   /* вторичный текст */
 }
 
 /* Вариант оформления темы через @theme (новое в v4) */
@@ -13,6 +18,9 @@
   --color-brand: var(--brand);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted:  var(--muted);
   /* Если в проекте есть шрифты, можно указать:
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -27,14 +35,19 @@
   }
 }
 
+
+
 /* Базовые стили страницы */
-html, body {
+html,
+body {
   height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto,
+    Arial, "Noto Sans", "Helvetica Neue", sans-serif;
 }
 
 /* Заголовки секций, чтобы не повторяться */
@@ -59,23 +72,18 @@ body {
 /* Красивый фон для всего приложения */
 .bg-app {
   /* слой 1: радиальные «пятна» (фиолет/розовый, очень нежно) */
-  background-image:
-    radial-gradient(1200px 600px at 10% -10%, #7c3aed22, transparent 60%),
+  background-image: radial-gradient(
+      1200px 600px at 10% -10%,
+      #7c3aed22,
+      transparent 60%
+    ),
     radial-gradient(900px 500px at 110% 20%, #ec489922, transparent 60%),
     /* слой 2: едва заметная сетка точек */
-    radial-gradient(circle at 1px 1px, #ffffff07 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, #ffffff07 1px, transparent 0),
     /* слой 3: общий вертикальный градиент (тёмный, благородный) */
-    linear-gradient(180deg, #0f1120 0%, #0f1120 40%, #15172b 100%);
-  background-size:
-    auto,
-    auto,
-    16px 16px,
-    auto;
-  background-position:
-    center,
-    center,
-    0 0,
-    0 0;
+      linear-gradient(180deg, #0f1120 0%, #0f1120 40%, #15172b 100%);
+  background-size: auto, auto, 16px 16px, auto;
+  background-position: center, center, 0 0, 0 0;
 }
 
 /* === Кнопки === */
@@ -85,31 +93,35 @@ body {
   justify-content: center;
   min-height: 44px;
   padding: 0.75rem 1.25rem; /* ~ px-5 py-3 */
-  border-radius: 0.75rem;   /* ~ rounded-xl */
+  border-radius: 0.75rem; /* ~ rounded-xl */
   font-weight: 600;
   text-decoration: none;
-  transition: transform .12s ease, opacity .2s ease, filter .2s ease;
+  transition: transform 0.12s ease, opacity 0.2s ease, filter 0.2s ease;
   will-change: transform;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
 
 /* градиентная главная кнопка */
 .btn-primary {
   color: white;
   background-image: linear-gradient(90deg, #7c3aed, #ec4899);
-  box-shadow:
-    0 10px 25px -10px #7c3aed44,
-    0 8px 18px -12px #ec489944;
+  box-shadow: 0 10px 25px -10px #7c3aed44, 0 8px 18px -12px #ec489944;
 }
 
 /* контурная вторичная */
 .btn-outline {
-  color: inherit;
+  color: white;
   border: 1px solid #5b5f86;
   background: linear-gradient(180deg, #1a1d33, #15172b);
 }
-.btn-outline:hover { border-color: #7a80b3; }
+.btn-outline:hover {
+  border-color: #7a80b3;
+}
 
 /* Спокойная primary-кнопка (индиго/синий) с мягким «переливом» */
 .btn-primary-calm {
@@ -130,24 +142,380 @@ body {
 
 /* ключевые кадры для «перелива» */
 @keyframes btnShift {
-  from { background-position:   0% 0; }
-  to   { background-position: 100% 0; }
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
 }
 
 /* Мягкая подцветка карточек + лёгкий подъём */
 .card--tint {
-  background:
-    radial-gradient(600px 200px at 0% 0%, rgba(124, 58, 237, 0.08), transparent 60%),
-    radial-gradient(600px 200px at 100% 100%, rgba(59, 130, 246, 0.08), transparent 60%),
+  background: radial-gradient(
+      600px 200px at 0% 0%,
+      rgba(124, 58, 237, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      600px 200px at 100% 100%,
+      rgba(59, 130, 246, 0.08),
+      transparent 60%
+    ),
     var(--surface);
   border-color: #2e3353; /* чуть светлее обычной границы */
 }
 
-.lift { 
-  transition: transform .15s ease, box-shadow .2s ease;
+.lift {
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
   will-change: transform;
 }
-.lift:hover { 
-  transform: translateY(-2px); 
+.lift:hover {
+  transform: translateY(-2px);
   box-shadow: 0 16px 40px -22px #0008;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+
+/* Вторичный и бледный текст под тёмную тему */
+.text-secondary {
+  color: #b9bbd0;
+} /* было text-gray-600, станет чуть светлее */
+.text-muted {
+  color: #98a0c0;
+} /* ещё светлее для совсем мелких подпунктов */
+
+/* Тонкий разделитель блоков */
+.hr {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  margin-block: 2rem; /* вертикальный отступ вокруг линии */
+}
+@media (min-width: 768px) {
+  .hr {
+    margin-block: 2.5rem;
+  }
+}
+
+/* Плавное появление снизу */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out,
+    filter 0.6s ease-out;
+  will-change: opacity, transform, filter;
+}
+
+/* Когда элемент вошёл в зону видимости */
+.reveal--in {
+  opacity: 1;
+  transform: translateY(0);
+  filter: none;
+}
+
+/* Лёгкая задержка для элементов сетки */
+.reveal-delay-1 {
+  transition-delay: 0.06s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.12s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.18s;
+}
+
+/* Базовый стиль полей формы */
+.input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #1a1d33, #15172b);
+  color: var(--foreground);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* Ховер — лёгкое подсветление рамки */
+.input:hover {
+  border-color: #7a80b3;
+}
+
+/* Фокус — чёткое кольцо и лёгкое свечение */
+.input:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.45); /* голубое кольцо */
+  border-color: #8ea4ff;
+}
+
+/* Ошибка — красная рамка (добавим класс .input--error при валидации) */
+.input--error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
+/* Плейсхолдер чуть тише */
+.input::placeholder {
+  color: #9aa3c7;
+}
+
+/* Текстовые области ровно с инпутами */
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Мягкий "shine" при ховере на спокойной кнопке */
+.btn-primary-calm {
+  position: relative;
+  overflow: hidden; /* чтобы блик не выходил за края */
+}
+
+.btn-primary-calm::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 40%;
+  height: 140%;
+  transform: skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0; /* по умолчанию не видно */
+  pointer-events: none;
+}
+
+.btn-primary-calm:hover::before {
+  opacity: 1;
+  animation: btnShine 0.9s ease-out forwards;
+}
+
+/* Анимация перемещает блик слева направо */
+@keyframes btnShine {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+/* Уважение предпочтений "уменьшить анимации" */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary-calm:hover::before {
+    animation: none;
+    opacity: 0; /* или можно оставить легкую статичную подсветку */
+  }
+}
+
+/* Градиентная рамка для карточек (деликатно) */
+.card--border {
+  position: relative;
+  isolation: isolate; /* чтобы псевдоэлементы не вылезали наружу */
+}
+
+.card--border::before {
+  content: "";
+  position: absolute;
+  inset: -1px; /* выходит на 1px за реальную границу */
+  z-index: -1;
+  border-radius: 1.05rem; /* чуть больше, чем у .card */
+  background: linear-gradient(90deg, #7c3aed55, #3b82f655);
+  opacity: 0.55; /* мягко по умолчанию */
+  transition: opacity 0.25s ease, filter 0.25s ease;
+  pointer-events: none;
+}
+
+/* при ховере рамка чуть ярче */
+.card--border:hover::before {
+  opacity: 0.9;
+  filter: saturate(1.1);
+}
+
+/* уважение reduce motion — без резких изменений */
+@media (prefers-reduced-motion: reduce) {
+  .card--border::before,
+  .card--border:hover::before {
+    transition: opacity 0.2s ease;
+  }
+}
+
+/* Тонкая градиентная линия сверху секции */
+.section-topline {
+  position: relative;
+}
+.section-topline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(124, 58, 237, 0.45),
+    rgba(59, 130, 246, 0.45),
+    transparent
+  );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Мини-иконки в футере */
+/* Мини-иконки в футере (x2) */
+.footer-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px; /* было 10px */
+}
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; /* было 28px */
+  height: 56px; /* было 28px */
+  color: #b9bbd0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.12s ease;
+  cursor: pointer;
+}
+.icon-link:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+} /* было -1px */
+.icon-link:active {
+  transform: translateY(0);
+}
+.icon-link > svg {
+  pointer-events: none;
+}
+
+/* Тост (всплывашка "Скопировано") */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #1a1d33, #15172b);
+  border: 1px solid var(--border);
+  color: white;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -15px #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 60;
+}
+.toast--show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* FAQ — аккуратные аккордеоны */
+.faq details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.faq details + details {
+  margin-top: 0.6rem;
+}
+
+.faq summary {
+  cursor: pointer;
+  list-style: none; /* убираем маркер */
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq .chev {
+  transition: transform 0.2s ease;
+}
+.faq details[open] .chev {
+  transform: rotate(180deg);
+}
+
+.faq .answer {
+  margin-top: 0.5rem;
+  color: #b9bbd0; /* как text-secondary */
+  line-height: 1.6;
+}
+
+/* FAQ answer: плавность и стабильная компоновка */
+.faq .answer {
+  contain: layout; /* изолируем layout: меньше пересчётов */
+  will-change: height;
+  overflow: hidden; /* на всякий случай, дублируем */
+}
+
+/* избегаем схлопывания внешних отступов у первого/последнего элемента */
+.faq .answer > *:first-child {
+  margin-top: 0 !important;
+}
+.faq .answer > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Локальный светлый режим внутри секции/контейнера */
+.on-light {
+  --background: #ffffff;
+  --foreground: #171717;
+  --surface:    #f7f8fe;
+  --border:     #e5e8ff;
+  --muted:      #4b5563;
+  color: var(--foreground);
+}
+.on-light a { color: inherit; }           /* ссылки не чернеют/синеют самовольно */
+.on-light .text-secondary { color: #4b5563; }
+.on-light .text-muted     { color: #6b7280; }
+
+/* ===== Аккуратный focus-visible для ссылок ===== */
+.nav-link {
+  display: inline-block;           /* чтобы кольцо обводило область текста */
+  padding: 0.375rem 0.5rem;        /* деликатная «кликабельная» зона */
+  border-radius: 0.5rem;
+  outline: none;
+}
+.nav-link:focus-visible {
+  box-shadow: 0 0 0 3px var(--brand-weak);
+}
+
+/* Иконки в футере — такое же кольцо */
+.icon-link:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 3px var(--brand-weak);
+}
+
+/* Ссылки-кнопки в мобильном меню */
+.menu-link {
+  display: inline-block;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.6rem;
+  outline: none;
+}
+.menu-link:focus-visible {
+  box-shadow: 0 0 0 3px var(--brand-weak);
 }

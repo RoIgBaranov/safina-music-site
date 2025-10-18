@@ -1,4 +1,5 @@
 import WaCta from "@/components/WaCta";
+import { ChevronDownIcon } from "@/components/Icons";
 
 export const metadata = {
   title: "Вокал — дети | Safina Music School",
@@ -10,16 +11,17 @@ export default function VocalKidsPage() {
   return (
     <section className="container-max py-14">
       <h1 className="section-title">Вокал — дети</h1>
-      <p className="text-gray-700 mt-3">
-        На детских занятиях мы бережно знакомим ребёнка с голосом: через игру, ритм и любимые
-        песни. Мягко ставим дыхание, развиваем слух и чувство ритма, помогаем почувствовать уверенность.
+      <p className="text-secondary mt-3">
+        На детских занятиях мы бережно знакомим ребёнка с голосом: через игру,
+        ритм и любимые песни. Мягко ставим дыхание, развиваем слух и чувство
+        ритма, помогаем почувствовать уверенность.
       </p>
 
       {/* Что получите */}
       <div className="grid md:grid-cols-2 gap-6 mt-8">
         <div className="card card--tint lift">
           <h2 className="font-semibold">Что ребёнок получит за 8 занятий</h2>
-          <ul className="list-disc pl-5 text-gray-700 mt-2 space-y-1">
+          <ul className="list-disc pl-5 text-secondary mt-2 space-y-1">
             <li>Понимание правильного дыхания без зажимов</li>
             <li>Расширение диапазона в комфортном темпе</li>
             <li>Уверенность в исполнении и выступлении</li>
@@ -30,7 +32,7 @@ export default function VocalKidsPage() {
         {/* Пробный урок */}
         <div className="card card--tint lift">
           <h2 className="font-semibold">Как проходит пробный урок</h2>
-          <ol className="list-decimal pl-5 text-gray-700 mt-2 space-y-1">
+          <ol className="list-decimal pl-5 text-secondary mt-2 space-y-1">
             <li>Короткое знакомство: цель, любимые песни</li>
             <li>Дыхание и 2–3 простых упражнения</li>
             <li>Разбор знакомой песни (маленький фрагмент)</li>
@@ -38,6 +40,7 @@ export default function VocalKidsPage() {
           </ol>
         </div>
       </div>
+      <div className="hr" />
 
       {/* Форматы и цены */}
       <div className="card card--tint lift">
@@ -46,43 +49,51 @@ export default function VocalKidsPage() {
           <div>
             <div className="font-semibold">Пробный</div>
             <div className="text-2xl font-extrabold">₪90</div>
-            <div className="text-gray-600">30–45 минут</div>
+            <div className="text-secondary">30–45 минут</div>
           </div>
           <div>
             <div className="font-semibold">Индивидуальный</div>
             <div className="text-2xl font-extrabold">₪180</div>
-            <div className="text-gray-600">45–60 минут</div>
+            <div className="text-secondary">45–60 минут</div>
           </div>
           <div>
             <div className="font-semibold">Мини-группа</div>
             <div className="text-2xl font-extrabold">₪120</div>
-            <div className="text-gray-600">за человека</div>
+            <div className="text-secondary">за человека</div>
           </div>
         </div>
       </div>
 
       {/* FAQ */}
-      <div className="card card--tint lift">
-        <h2 className="font-semibold">Частые вопросы</h2>
-        <div className="mt-3 grid md:grid-cols-2 gap-4">
-          <div>
-            <div className="font-medium">С какого возраста можно?</div>
-            <p className="text-gray-700 mt-1">Обычно с 5 лет, но смотрим индивидуально.</p>
-          </div>
-          <div>
-            <div className="font-medium">Нужно ли иметь опыт?</div>
-            <p className="text-gray-700 mt-1">Нет, начинаем с игры и простых упражнений.</p>
-          </div>
-          <div>
-            <div className="font-medium">Что взять на урок?</div>
-            <p className="text-gray-700 mt-1">Воду и список любимых песен.</p>
-          </div>
-          <div>
-            <div className="font-medium">Будут ли концерты?</div>
-            <p className="text-gray-700 mt-1">Да, у нас есть зал и мини-сцены.</p>
+      <section className="section-topline">
+        <div className="container-max py-14 text-secondary">
+          <h2 className="section-title">FAQ</h2>
+          <div className="faq mt-6 ">
+            {[
+              {
+                q: "С какого возраста лучше начинать?",
+                a: "Обычно с 5–6 лет. В этом возрасте занимаемся в игровой форме, развиваем слух, дыхание и чувство ритма.",
+              },
+              {
+                q: "Нужен ли опыт и «музыкальность»?",
+                a: "Не обязательно. Всё строим от простого к сложному, без давления. Важно, чтобы ребёнку было интересно.",
+              },
+              {
+                q: "Даете ли домашние задания?",
+                a: "Короткие и посильные. Цель — поддерживать интерес и привычку, а не перегружать ребёнка.",
+              },
+            ].map(({ q, a }) => (
+              <details key={q}>
+                <summary>
+                  <ChevronDownIcon className="chev" />
+                  {q}
+                </summary>
+                <div className="answer">{a}</div>
+              </details>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* CTA */}
       <div className="mt-8">

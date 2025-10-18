@@ -33,7 +33,7 @@ export default function DirectionsPage() {
   return (
     <section className="container-max py-14">
       <h1 className="section-title">Направления</h1>
-      <p className="text-gray-600 mt-2">
+      <p className="text-secondary mt-2">
         Выберите направление, чтобы узнать, как проходит пробный, что получите за 8 занятий,
         и записаться на удобное время.
       </p>
@@ -43,10 +43,10 @@ export default function DirectionsPage() {
           <Link
             key={i.slug}
             href={`/directions/${i.slug}`}
-            className="card card--tint lift hover:shadow-md"
+            className="card card--tint lift card--border hover:shadow-md"
           >
             <h3 className="font-semibold">{i.title}</h3>
-            <p className="text-gray-600 mt-1">{i.desc}</p>
+            <p className="text-secondary mt-1">{i.desc}</p>
             <span className="text-[var(--brand)] text-sm mt-3 inline-block">
               Подробнее →
             </span>

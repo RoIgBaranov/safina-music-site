@@ -35,9 +35,10 @@ export default function TeachersPage() {
   return (
     <section className="container-max py-14">
       <h1 className="section-title">Преподаватели</h1>
-      <p className="text-gray-600 mt-2">
+      <p className="text-secondary mt-2">
         Мы помогаем бережно раскрыть голос и уверенно выйти на сцену. Ниже — кратко о каждом.
       </p>
+      <div className="hr" />
 
       <div className="mt-8 grid sm:grid-cols-2 gap-6">
         {teachers.map((t) => (
@@ -58,8 +59,8 @@ export default function TeachersPage() {
 
               <div>
                 <h3 className="font-semibold">{t.name}</h3>
-                <div className="text-sm text-gray-500">{t.role}</div>
-                <p className="text-gray-700 mt-2">{t.bio}</p>
+                <div className="text-sm text-muted">{t.role}</div>
+                <p className="text-secondary mt-2">{t.bio}</p>
 
                 <Link
                   href="/directions"

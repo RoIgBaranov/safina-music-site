@@ -1,107 +1,199 @@
 import Link from "next/link";
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
+import Carousel from "@/components/Carousel";
+import CarouselGroup from "@/components/CarouselGroup";
+import {
+  MicIcon,
+  MusicIcon,
+  SparklesIcon,
+  HeartIcon,
+  TicketIcon,
+  UserIcon,
+  UsersIcon,
+} from "@/components/Icons";
 
 export default function HomePage() {
+  const audience = [
+    {
+      title: "Дети 5–7",
+      text: "Играем и поём, ставим дыхание мягко.",
+      icon: <SparklesIcon />,
+    },
+    {
+      title: "Дети 8–12",
+      text: "Раскрываем голос, снимаем зажимы.",
+      icon: <MusicIcon />,
+    },
+    {
+      title: "Подростки",
+      text: "Подготовка к сцене/конкурсам.",
+      icon: <MicIcon />,
+    },
+    {
+      title: "Взрослые",
+      text: "С нуля и для души, любимые песни.",
+      icon: <HeartIcon />,
+    },
+  ];
+
   return (
     <main>
       {/* ===== HERO ===== */}
-      <section className="bg-gradient-to-b from-purple-50 to-white">
-        <div className="container-max relative  py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-          {/* Декоративная мягкая «сфера» позади контента */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -z-10 -top-24 -left-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-30"
-            style={{
-              backgroundImage:
-                "radial-gradient(closest-side, #7c3aed, transparent 70%)",
-            }}
-          />
+      <section className="relative overflow-hidden bg-gradient-to-b from-purple-50 to-transparent">
+        {/* Мягкая «сфера» позади контента, но поверх фона секции */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-0 -top-24 -left-24 md:-top-28 md:-left-28 w-[28rem] h-[28rem] md:w-[34rem] md:h-[34rem] rounded-full blur-3xl opacity-40"
+          style={{
+            backgroundImage:
+              "radial-gradient(closest-side, #4f46e5, transparent 72%)",
+          }}
+        />
+        {/* Вторая мягкая «сфера» справа-сверху, поменьше */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-0 -top-16 -right-10 md:-top-24 md:-right-16 w-[16rem] h-[16rem] md:w-[20rem] md:h-[20rem] rounded-full blur-3xl opacity-35"
+          style={{
+            backgroundImage:
+              "radial-gradient(closest-side, #3b82f6, transparent 72%)",
+          }}
+        />
 
-          {/* Левая колонка: текст и кнопки */}
-          <div>
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-              Музыкальная школа в&nbsp;Холоне —{" "}
-              <span className="text-[var(--brand)]">вокал</span>, фортепиано,
-              гитара
-            </h1>
+        {/* Основной контент HERO */}
+        <div className="container-max relative z-10 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+          {/* Левая колонка: заголовок, текст, кнопки, пункты */}
+          <Reveal>
+            <div>
+              <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+                Музыкальная школа в&nbsp;Холоне —{" "}
+                <span className="text-[var(--brand-500)]">вокал</span>,
+                фортепиано, гитара
+              </h1>
 
-            <p className="mt-4 text-lg text-gray-600">
-              Для детей и взрослых. Дружелюбная атмосфера, сцена и концерты.
-              Пробный урок — запишитесь за 1 минуту.
-            </p>
+              <p className="mt-4 text-lg text-secondary">
+                Для детей и взрослых. Дружелюбная атмосфера, сцена и концерты.
+                Пробный урок — запишитесь за 1 минуту.
+              </p>
 
-            <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/directions" className="btn btn-outline">
-                Направления
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link href="/directions" className="btn btn-outline">
+                  Направления
+                </Link>
+                <Link href="/pricing" className="btn btn-primary-calm">
+                  Цены и запись
+                </Link>
+              </div>
 
-              <Link
-                href="/pricing"
-                className="btn btn-primary-calm"
-                style={{ backgroundColor: "var(--brand)" }}
-              >
-                Цены и запись
-              </Link>
+              <ul className="mt-6 grid gap-2 text-secondary">
+                <li>• 4 кабинета + зал для выступлений</li>
+                <li>• Индивидуально и мини-группы</li>
+                <li>• 30+ учеников, регулярные концерты</li>
+              </ul>
             </div>
+          </Reveal>
+          {/* Правая колонка: место под фото (пока заглушка) */}
 
-            <ul className="mt-6 grid gap-2 text-gray-600">
-              <li>• 4 кабинета + зал для выступлений</li>
-              <li>• Индивидуально и мини-группы</li>
-              <li>• 30+ учеников, регулярные концерты</li>
-            </ul>
+          <div className="relative aspect-[4/3]">
+            <Image
+              src="/images/hall.jpg"
+              alt="Зал школы"
+              fill
+              className="object-cover rounded-2xl"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              priority
+            />
           </div>
-
-          {/* Правая колонка: место под фото зала/класса (заменишь на <img .../>) */}
-          <div className="aspect-[4/3] rounded-2xl bg-gray-200" />
-          {/*
-            Позже поменяешь на:
-            <img src="/images/hall.jpg" alt="Зал школы" className="w-full aspect-[4/3] object-cover rounded-2xl" />
-          */}
         </div>
       </section>
 
+      {/* ===== Мини-галерея: 3 карусели ===== */}
+      <CarouselGroup
+  items={[
+    {
+      title: "Фото с занятий",
+      href: "/gallery#lessons",
+      images: [
+        "/images/gallery-lessons-1.JPG",
+        "/images/gallery-lessons-2.png",
+        "/images/gallery-lessons-3.png",
+      ],
+    },
+    {
+      title: "Фото с концертов",
+      href: "/gallery#concerts",
+      images: [
+        "/images/gallery-concerts-1.png",
+        "/images/gallery-concerts-2.png",
+        "/images/gallery-concerts-3.png",
+      ],
+    },
+    {
+      title: "Бекстейдж",
+      href: "/gallery#backstage",
+      images: [
+        "/images/gallery-backstage-1.png",
+        "/images/gallery-backstage-2.png",
+        "/images/gallery-backstage-3.png",
+      ],
+    },
+  ]}
+/>
+
+
       {/* ===== ДЛЯ КОГО ===== */}
-      <section>
+      <section className="section-topline">
         <div className="container-max py-14">
-          <h2 className="section-title">Для кого подойдёт</h2>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Дети 5–7",
-                text: "Играем и поём, ставим дыхание мягко.",
-              },
-              { title: "Дети 8–12", text: "Раскрываем голос, снимаем зажимы." },
-              { title: "Подростки", text: "Подготовка к сцене/конкурсам." },
-              { title: "Взрослые", text: "С нуля и для души, любимые песни." },
-            ].map((c) => (
-              <div key={c.title} className="card card--tint lift">
-                <h3 className="font-semibold">{c.title}</h3>
-                <p className="text-gray-600 mt-2">{c.text}</p>
-              </div>
+          <h2 className="section-title text-muted">Для кого подойдёт</h2>
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-muted">
+            {audience.map((c, i) => (
+              <Reveal
+                key={c.title}
+                className={`reveal ${
+                  i === 1
+                    ? "reveal-delay-1"
+                    : i === 2
+                    ? "reveal-delay-2"
+                    : i === 3
+                    ? "reveal-delay-3"
+                    : ""
+                }`}
+              >
+                <div className="card card--tint lift card--border">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#2e3353] bg-white/5 text-white/90">
+                      {c.icon}
+                    </span>
+                    <h3 className="font-semibold">{c.title}</h3>
+                  </div>
+                  <p className="text-secondary mt-3">{c.text}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ===== ПРЕПОДАВАТЕЛИ (превью) ===== */}
-      <section className="bg-gray-50">
-        <div className="container-max py-14">
+      <section className="bg-gray-50 section-topline  on-light">
+        <Reveal className="container-max py-14">
           <h2 className="section-title">Преподаватели</h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-secondary mt-2">
             Бережный подход, техника без зажимов, сцена.
           </p>
 
           <div className="mt-6 grid sm:grid-cols-2 gap-6">
             {/* Карточка 1 — подставим реальное имя и факты позже */}
-            <div className="card card--tint lift flex gap-4">
-              {/* Заглушка для фото */}
-              <div className="w-24 h-24 rounded-xl bg-gray-200 shrink-0" />
-              {/* Вместо этого:
-                <img src="/images/maria.jpg" alt="Мария Баранова" className="w-24 h-24 rounded-xl object-cover" />
-              */}
+            <div className="card card--tint lift card--border flex gap-4">
+              <img
+                src="/images/maria.jpg"
+                alt="Мария Баранова"
+                className="w-24 h-24 rounded-xl object-cover"
+              />
+
               <div>
                 <h3 className="font-semibold">Мария Баранова</h3>
-                <p className="text-gray-600 text-sm mt-1">
+                <p className="text-700 text-sm mt-1">
                   Педагог по вокалу. 8+ лет практики. Подготовка к сцене.
                 </p>
                 <Link
@@ -114,11 +206,15 @@ export default function HomePage() {
             </div>
 
             {/* Карточка 2 — второй педагог/направление */}
-            <div className="card card--tint lift flex gap-4">
-              <div className="w-24 h-24 rounded-xl bg-gray-200 shrink-0" />
+            <div className="card card--tint lift card--border flex gap-4">
+              <img
+                src="/images/katya.jpg"
+                alt="Екатерина Чаусова"
+                className="w-24 h-24 rounded-xl object-cover"
+              />
               <div>
-                <h3 className="font-semibold">Педагог 2</h3>
-                <p className="text-gray-600 text-sm mt-1">
+                <h3 className="font-semibold">Екатерина Чаусова</h3>
+                <p className="text-700 text-sm mt-1">
                   Вокал/фортепиано/гитара — адаптация под цель ученика.
                 </p>
                 <Link
@@ -130,41 +226,60 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== ЦЕНЫ (превью) ===== */}
-      <section>
-        <div className="container-max py-14">
-          <h2 className="section-title">Цены и форматы</h2>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="section-topline">
+        <Reveal className="container-max py-14">
+          <h2 className="section-title text-muted">Цены и форматы</h2>
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-muted">
             {[
-              { title: "Пробный урок", price: "₪90", desc: "30–45 минут" },
-              { title: "Индивидуальный", price: "₪180", desc: "45–60 минут" },
-              { title: "Мини-группа", price: "₪120", desc: "за человека" },
-            ].map((p) => (
-              <div key={p.title} className="card card--tint lift">
-                <h3 className="font-semibold">{p.title}</h3>
-                <p className="text-2xl font-extrabold mt-2">{p.price}</p>
-                <p className="text-gray-600">{p.desc}</p>
-                <Link
-                  href="/pricing"
-                  className="mt-4 inline-block rounded-xl px-4 py-2 text-white"
-                  style={{ backgroundColor: "var(--brand)" }}
-                >
-                  Записаться
-                </Link>
-              </div>
+              {
+                title: "Пробный урок",
+                price: "₪90",
+                desc: "30–45 минут",
+                Icon: TicketIcon,
+              },
+              {
+                title: "Индивидуальный",
+                price: "₪180",
+                desc: "45–60 минут",
+                Icon: UserIcon,
+              },
+              {
+                title: "Мини-группа",
+                price: "₪120",
+                desc: "за человека",
+                Icon: UsersIcon,
+              },
+            ].map(({ title, price, desc, Icon }) => (
+              <Reveal key={title} className="reveal">
+                <div className="card card--tint lift card--border">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-[#2e3353] bg-white/5 text-white/90">
+                      <Icon />
+                    </span>
+                    <h3 className="font-semibold">{title}</h3>
+                  </div>
+                  <p className="text-2xl font-extrabold mt-2 text-white">
+                    {price}
+                  </p>
+                  <p className="text-secondary">{desc}</p>
+                  {/* по желанию: */}
+                  {/* <Link href="/pricing" className="btn btn-outline mt-3">Подробнее</Link> */}
+                </div>
+              </Reveal>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== КАРТА ===== */}
-      <section className="bg-gray-50">
-        <div className="container-max py-14">
+      <section className="bg-gray-50 section-topline  on-light">
+        <Reveal className="container-max py-14">
           <h2 className="section-title">Как нас найти</h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-secondary mt-2">
             Холон, рядом с удобной парковкой.
           </p>
 
@@ -178,7 +293,7 @@ export default function HomePage() {
               loading="lazy"
             />
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

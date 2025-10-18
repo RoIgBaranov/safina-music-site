@@ -23,6 +23,7 @@ export const Header: React.FC = () => {
   );
 
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Закрывать меню при ресайзе на большие экраны
   useEffect(() => {
@@ -33,42 +34,88 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // Меняем фон шапки при скролле
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 6);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Блокируем скролл боди, когда открыт оверлей
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/70 backdrop-blur">
-      <div className="container-max py-3 flex items-center justify-between">
+    <header
+      className={[
+        "sticky top-0 z-50 border-b backdrop-blur transition-colors duration-200",
+        scrolled
+          ? "bg-[#0f1120e6] border-[#22263f] shadow-[0_10px_30px_-20px_#000c]"
+          : "bg-[#0f1120cc] border-[#1a1d33]",
+      ].join(" ")}
+    >
+      {/* тонкая светящаяся линия у нижней границы (деликатно) */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, rgba(124,58,237,.35), rgba(59,130,246,.35), transparent)",
+          opacity: scrolled ? 1 : 0.6,
+        }}
+      />
+
+      <div className="container-max py-3 flex items-center justify-between relative">
         {/* Лого */}
-        <Link href="/" className="font-extrabold text-lg hover:opacity-90 transition">
+        <Link
+          href="/"
+          className="font-extrabold text-lg hover:opacity-90 transition text-secondary"
+        >
           Safina
         </Link>
 
         {/* Десктоп-меню */}
         <nav className="hidden md:flex gap-6 text-sm">
-          <Link href="/directions" className="hover:text-[var(--brand)] transition">
+          <Link
+            href="/directions"
+            className="nav-link  hover:text-[var(--brand)] transition"
+          >
             Направления
           </Link>
-          <Link href="/teachers" className="hover:text-[var(--brand)] transition">
+          <Link
+            href="/teachers"
+            className="nav-link hover:text-[var(--brand)] transition "
+          >
             Преподаватели
           </Link>
-          <Link href="/pricing" className="hover:text-[var(--brand)] transition">
+          <Link
+            href="/pricing"
+            className="nav-link hover:text-[var(--brand)] transition "
+          >
             Цены
           </Link>
-          <Link href="/contact" className="hover:text-[var(--brand)] transition">
+          <Link
+            href="/gallery"
+            className="nav-link hover:text-[var(--brand)] transition "
+          >
+            Галерея
+          </Link>
+          <Link
+            href="/contact"
+            className="nav-link hover:text-[var(--brand)] transition "
+          >
             Контакты
           </Link>
         </nav>
 
-        {/* Кнопка WhatsApp (всегда видна) */}
+        {/* Кнопка WhatsApp (десктоп) */}
         <a
           href={waLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center rounded-xl px-4 py-2 text-white hover:opacity-90 transition"
-          style={{ backgroundColor: "var(--brand)" }}
+          className="hidden md:inline-flex items-center btn btn-primary-calm"
           aria-label="Записаться в WhatsApp"
         >
           Записаться
@@ -76,7 +123,7 @@ export const Header: React.FC = () => {
 
         {/* Бургер для мобилок */}
         <button
-          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border hover:bg-gray-50 transition"
+          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border hover:bg-gray-50/5 transition"
           aria-label="Открыть меню"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -84,17 +131,17 @@ export const Header: React.FC = () => {
           {/* Иконка-гамбургер/крестик */}
           <span className="relative block w-5 h-3">
             <span
-              className={`absolute block h-0.5 w-5 bg-black transition-transform duration-300 ${
+              className={`absolute block h-0.5 w-5 bg-white transition-transform duration-300 ${
                 open ? "translate-y-1.5 rotate-45" : ""
               }`}
             />
             <span
-              className={`absolute block h-0.5 w-5 bg-black transition-opacity duration-200 top-1.5 ${
+              className={`absolute block h-0.5 w-5 bg-white transition-opacity duration-200 top-1.5 ${
                 open ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`absolute block h-0.5 w-5 bg-black transition-transform duration-300 top-3 ${
+              className={`absolute block h-0.5 w-5 bg-white transition-transform duration-300 top-3 ${
                 open ? "-translate-y-1.5 -rotate-45" : ""
               }`}
             />
@@ -115,20 +162,43 @@ export const Header: React.FC = () => {
 
           {/* панель меню */}
           <div
-            className="absolute right-0 top-0 h-full w-[80%] max-w-xs bg-white shadow-xl p-6 animate-[slideIn_.25s_ease]"
+            className="absolute right-0 top-0 h-full w-[80%] max-w-xs bg-[#12142a] border-l border-[#1e2240] shadow-xl p-6 animate-[slideIn_.25s_ease]"
             onClick={(e) => e.stopPropagation()}
           >
             <nav className="grid gap-4 text-base">
-              <Link href="/directions" className="hover:text-[var(--brand)]" onClick={() => setOpen(false)}>
+              <Link
+                href="/directions"
+                className="menu-link hover:text-[var(--brand)]"
+                onClick={() => setOpen(false)}
+              >
                 Направления
               </Link>
-              <Link href="/teachers" className="hover:text-[var(--brand)]" onClick={() => setOpen(false)}>
+              <Link
+                href="/teachers"
+                className="menu-link hover:text-[var(--brand)]"
+                onClick={() => setOpen(false)}
+              >
                 Преподаватели
               </Link>
-              <Link href="/pricing" className="hover:text-[var(--brand)]" onClick={() => setOpen(false)}>
+              <Link
+                href="/pricing"
+                className="menu-link hover:text-[var(--brand)]"
+                onClick={() => setOpen(false)}
+              >
                 Цены
               </Link>
-              <Link href="/contact" className="hover:text-[var(--brand)]" onClick={() => setOpen(false)}>
+              <Link
+                href="/gallery"
+                className="menu-link hover:text-[var(--brand)]"
+                onClick={() => setOpen(false)}
+              >
+                Галерея
+              </Link>
+              <Link
+                href="/contact"
+                className="menu-link hover:text-[var(--brand)]"
+                onClick={() => setOpen(false)}
+              >
                 Контакты
               </Link>
             </nav>
@@ -137,15 +207,14 @@ export const Header: React.FC = () => {
               href={waLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block w-full text-center rounded-xl px-4 py-3 text-white hover:opacity-90 transition"
-              style={{ backgroundColor: "var(--brand)" }}
+              className="mt-6 inline-block w-full text-center btn btn-primary-calm"
             >
               Записаться в WhatsApp
             </a>
           </div>
         </div>
       )}
-      {/* ключевыефреймы для анимации панели */}
+      {/* keyframes для боковой панели */}
       <style>
         {`@keyframes slideIn {
             from { transform: translateX(100%); opacity: .4 }
