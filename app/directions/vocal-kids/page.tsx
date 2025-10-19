@@ -5,6 +5,21 @@ export const metadata = {
   title: "Вокал — дети | Safina Music School",
   description:
     "Детский вокал в Холоне: мягкая постановка дыхания, игры, уверенность на сцене. Пробный урок — запишитесь за 1 минуту.",
+  alternates: { canonical: "/directions/vocal-kids" },
+  openGraph: {
+    title: "Вокал — дети | Safina Music School",
+    description:
+      "Занятия по вокалу для детей в Холоне: дыхание без зажимов, слух и ритм, мини-выступления.",
+    url: "/directions/vocal-kids",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Вокал — дети | Safina Music School",
+    description:
+      "Детский вокал: мягко, интересно, результативно. Пробный — запись в 1 клик.",
+    images: ["/twitter-image.png"],
+  },
 };
 
 export default function VocalKidsPage() {

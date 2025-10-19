@@ -5,7 +5,23 @@ export const metadata = {
   title: "Гитара | Safina Music School",
   description:
     "Гитара в Холоне: аккорды, ритм, переборы, разбор песен. Индивидуально и мини-группы. Запишитесь на пробный.",
+  alternates: { canonical: "/directions/guitar" },
+  openGraph: {
+    title: "Гитара | Safina Music School",
+    description:
+      "Гитара с нуля: базовые аккорды, бой/переборы и любимые песни. Холон.",
+    url: "/directions/guitar",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Гитара | Safina Music School",
+    description:
+      "Индивидуальные и мини-группы. Пробный урок — в один клик.",
+    images: ["/twitter-image.png"],
+  },
 };
+
 
 export default function GuitarPage() {
   return (

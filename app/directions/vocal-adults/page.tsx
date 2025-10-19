@@ -5,6 +5,21 @@ export const metadata = {
   title: "Вокал — взрослые | Safina Music School",
   description:
     "Вокал для взрослых в Холоне: техника без зажимов, любимые песни, уверенность на сцене. Пробный урок — записывайтесь.",
+  alternates: { canonical: "/directions/vocal-adults" },
+  openGraph: {
+    title: "Вокал — взрослые | Safina Music School",
+    description:
+      "Вокал для взрослых: дыхание, опора, диапазон и уверенность на сцене. Холон.",
+    url: "/directions/vocal-adults",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Вокал — взрослые | Safina Music School",
+    description:
+      "Программа для взрослых: техника без зажимов и любимые песни. Пробный — запись в 1 клик.",
+    images: ["/twitter-image.png"],
+  },
 };
 
 export default function VocalAdultsPage() {
@@ -12,8 +27,9 @@ export default function VocalAdultsPage() {
     <section className="container-max py-14">
       <h1 className="section-title">Вокал — взрослые</h1>
       <p className="text-secondary mt-3">
-        Развиваем голос без зажимов, подбираем удобные тональности и репертуар, который нравится.
-        Работаем над дыханием, артикуляцией, диапазоном и сценическим ощущением.
+        Развиваем голос без зажимов, подбираем удобные тональности и репертуар,
+        который нравится. Работаем над дыханием, артикуляцией, диапазоном и
+        сценическим ощущением.
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -41,40 +57,53 @@ export default function VocalAdultsPage() {
       <div className="card card--tint lift">
         <h2 className="font-semibold">Форматы и цены</h2>
         <div className="grid sm:grid-cols-3 gap-4 mt-2">
-          <div><div className="font-semibold">Пробный</div><div className="text-2xl font-extrabold">₪90</div><div className="text-secondary">30–45 минут</div></div>
-          <div><div className="font-semibold">Индивидуальный</div><div className="text-2xl font-extrabold">₪180</div><div className="text-secondary">45–60 минут</div></div>
-          <div><div className="font-semibold">Мини-группа</div><div className="text-2xl font-extrabold">₪120</div><div className="text-secondary">за человека</div></div>
+          <div>
+            <div className="font-semibold">Пробный</div>
+            <div className="text-2xl font-extrabold">₪90</div>
+            <div className="text-secondary">30–45 минут</div>
+          </div>
+          <div>
+            <div className="font-semibold">Индивидуальный</div>
+            <div className="text-2xl font-extrabold">₪180</div>
+            <div className="text-secondary">45–60 минут</div>
+          </div>
+          <div>
+            <div className="font-semibold">Мини-группа</div>
+            <div className="text-2xl font-extrabold">₪120</div>
+            <div className="text-secondary">за человека</div>
+          </div>
         </div>
       </div>
 
-
       <section className="section-topline">
-  <div className="container-max py-14 text-secondary">
-    <h2 className="section-title">FAQ</h2>
-    <div className="faq mt-6">
-      {[
-        {
-          q: "Можно ли начать «с нуля» во взрослом возрасте?",
-          a: "Да. Работаем с дыханием, опорой и подбираем комфортный репертуар. Заниматься можно в 30, 40 и 60+.",
-        },
-        {
-          q: "Сколько нужно времени, чтобы появились результаты?",
-          a: "Через 4–6 занятий уже слышно прогресс в дыхании и свободе голоса. Темп зависит от регулярности.",
-        },
-        {
-          q: "Готовите к выступлениям/кавер-записям?",
-          a: "Да: работа с микрофоном, сценой и базовой записью. Поможем выбрать минуса и подстроим тональность.",
-        },
-      ].map(({ q, a }) => (
-        <details key={q}>
-          <summary><ChevronDownIcon className="chev" />{q}</summary>
-          <div className="answer">{a}</div>
-        </details>
-      ))}
-    </div>
-  </div>
-</section>
-
+        <div className="container-max py-14 text-secondary">
+          <h2 className="section-title">FAQ</h2>
+          <div className="faq mt-6">
+            {[
+              {
+                q: "Можно ли начать «с нуля» во взрослом возрасте?",
+                a: "Да. Работаем с дыханием, опорой и подбираем комфортный репертуар. Заниматься можно в 30, 40 и 60+.",
+              },
+              {
+                q: "Сколько нужно времени, чтобы появились результаты?",
+                a: "Через 4–6 занятий уже слышно прогресс в дыхании и свободе голоса. Темп зависит от регулярности.",
+              },
+              {
+                q: "Готовите к выступлениям/кавер-записям?",
+                a: "Да: работа с микрофоном, сценой и базовой записью. Поможем выбрать минуса и подстроим тональность.",
+              },
+            ].map(({ q, a }) => (
+              <details key={q}>
+                <summary>
+                  <ChevronDownIcon className="chev" />
+                  {q}
+                </summary>
+                <div className="answer">{a}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div className="mt-8">
         <WaCta message="Привет! Хочу записаться на пробный урок вокала (взрослый). Удобное время: _____.">

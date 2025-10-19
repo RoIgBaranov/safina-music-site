@@ -8,8 +8,24 @@ import {
 export const metadata = {
   title: "Цены — Safina Music School",
   description:
-    "Пробный, индивидуальные занятия, мини-группы. Правила переносов и заморозок абонемента.",
+    "Пробный ₪90, индивидуальные ₪180, мини-группа ₪120. Правила переносов и заморозок.",
+  alternates: { canonical: "/pricing" },
+  openGraph: {
+    title: "Цены — Safina Music School",
+    description:
+      "Актуальные цены и форматы: пробный, индивидуальные, мини-группы. Холон.",
+    url: "/pricing",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Цены — Safina Music School",
+    description:
+      "Пробный, индивидуальные и мини-группы. Посмотрите форматы и стоимость.",
+    images: ["/twitter-image.png"],
+  },
 };
+
 
 const tariffs = [
   {

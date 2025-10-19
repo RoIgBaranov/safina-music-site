@@ -1,3 +1,22 @@
+export const metadata = {
+  title: "Публичная оферта — Safina Music School",
+  description: "Условия оказания услуг музыкальной школы Safina.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Публичная оферта — Safina Music School",
+    description: "Правила, условия, порядок оплаты и возвратов.",
+    url: "/terms",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Публичная оферта — Safina Music School",
+    description: "Основные условия оказания услуг.",
+    images: ["/twitter-image.png"],
+  },
+};
+
+
 export default function TermsPage() {
     return (
       <section className="container-max py-14">

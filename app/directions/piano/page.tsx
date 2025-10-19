@@ -5,7 +5,23 @@ export const metadata = {
   title: "Фортепиано | Safina Music School",
   description:
     "Уроки фортепиано в Холоне: ноты, техника, репертуар. Индивидуально и мини-группы. Пробный урок — запись в 1 клик.",
+  alternates: { canonical: "/directions/piano" },
+  openGraph: {
+    title: "Фортепиано | Safina Music School",
+    description:
+      "Фортепиано с нуля: постановка рук, чтение нот, репертуар под ваши цели. Холон.",
+    url: "/directions/piano",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Фортепиано | Safina Music School",
+    description:
+      "Индивидуально и мини-группы. Пробный урок — запишитесь за 1 минуту.",
+    images: ["/twitter-image.png"],
+  },
 };
+
 
 export default function PianoPage() {
   return (

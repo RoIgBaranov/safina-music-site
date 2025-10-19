@@ -29,6 +29,20 @@ export const metadata = {
   title: "Преподаватели — Safina Music School",
   description:
     "Команда Safina: бережный подход, техника без зажимов, подготовка к сцене и конкурсам.",
+  alternates: { canonical: "/teachers" },
+  openGraph: {
+    title: "Преподаватели — Safina Music School",
+    description:
+      "Познакомьтесь с командой: опыт, подход, чем помогаем ученикам.",
+    url: "/teachers",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Преподаватели — Safina Music School",
+    description: "Команда школы Safina в Холоне.",
+    images: ["/twitter-image.png"],
+  },
 };
 
 export default function TeachersPage() {
@@ -36,7 +50,8 @@ export default function TeachersPage() {
     <section className="container-max py-14">
       <h1 className="section-title">Преподаватели</h1>
       <p className="text-secondary mt-2">
-        Мы помогаем бережно раскрыть голос и уверенно выйти на сцену. Ниже — кратко о каждом.
+        Мы помогаем бережно раскрыть голос и уверенно выйти на сцену. Ниже —
+        кратко о каждом.
       </p>
       <div className="hr" />
 
@@ -47,12 +62,12 @@ export default function TeachersPage() {
               {/* Фото или заглушка */}
               {t.photo ? (
                 <Image
-                src={t.photo}
-                alt={t.name}
-                width={96}
-                height={96}
-                className="w-24 h-24 rounded-xl object-cover shrink-0"
-              />
+                  src={t.photo}
+                  alt={t.name}
+                  width={96}
+                  height={96}
+                  className="w-24 h-24 rounded-xl object-cover shrink-0"
+                />
               ) : (
                 <div className="w-24 h-24 rounded-xl bg-gray-200 shrink-0" />
               )}

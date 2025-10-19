@@ -26,8 +26,24 @@ const items = [
 export const metadata = {
   title: "Направления — Safina Music School",
   description:
-    "Вокал для детей и взрослых, фортепиано, гитара. Индивидуальные и мини-группы.",
+    "Вокал для детей и взрослых, фортепиано, гитара. Индивидуальные занятия и мини-группы.",
+  alternates: { canonical: "/directions" },
+  openGraph: {
+    title: "Направления — Safina Music School",
+    description:
+      "Выберите направление: вокал (дети/взрослые), фортепиано, гитара.",
+    url: "/directions",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Направления — Safina Music School",
+    description:
+      "Вокал, фортепиано, гитара — форматы и запись на пробный.",
+    images: ["/twitter-image.png"],
+  },
 };
+
 
 export default function DirectionsPage() {
   return (

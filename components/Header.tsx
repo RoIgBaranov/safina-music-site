@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
+import Image from "next/image";
 
 /** wa.me линк */
 function buildWhatsAppLink(phone: string, text: string) {
@@ -67,13 +68,23 @@ export const Header: React.FC = () => {
         }}
       />
 
-      <div className="container-max py-3 flex items-center justify-between relative">
+      <div className="container-max py-2 md:py-3 flex items-center justify-between relative">
         {/* Лого */}
         <Link
           href="/"
-          className="font-extrabold text-lg hover:opacity-90 transition text-secondary"
+          aria-label="Safina Music School — на главную"
+          className="inline-flex items-center hover:opacity-90 transition"
         >
-          Safina
+          <Image
+            src="/images/logo.png"
+            alt="Safina Music School"
+            width={200} // было 140
+            height={56} // было 40
+            priority
+            className="h-12 w-auto md:h-[56px]" // ≈ 48px на мобиле, 56px на md+
+          />
+
+          <span className="sr-only">Safina</span>
         </Link>
 
         {/* Десктоп-меню */}
