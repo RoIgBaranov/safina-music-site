@@ -1,22 +1,28 @@
 // app/api/gallery/[section]/route.ts
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getGalleryImages } from "@/lib/cloudinary";
 
 type Section = "lessons" | "concerts" | "backstage";
 
 export async function GET(
-  _req: Request,
-  { params }: { params: { section: Section } }
+  _req: NextRequest,
+  ctx: { params: Promise<{ section: string }> } // ⬅ params теперь Promise
 ) {
-  const section = params?.section;
+  const { section } = await ctx.params; // ⬅ распаковываем
 
   if (!section || !["lessons", "concerts", "backstage"].includes(section)) {
     return NextResponse.json({ error: "Invalid section" }, { status: 400 });
   }
 
   try {
-    const items = await getGalleryImages(section);
-    return NextResponse.json({ section, count: items.length, items });
+    const sec = section as Section;
+    const items = await getGalleryImages(sec);
+    return NextResponse.json({
+      section: sec,
+      count: items.length,
+      items,
+      nextCursor: null,
+    });
   } catch (e: any) {
     return NextResponse.json(
       { error: e?.message || "Cloudinary fetch failed" },
