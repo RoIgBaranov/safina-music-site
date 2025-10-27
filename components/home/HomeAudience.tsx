@@ -57,7 +57,7 @@ export default function HomeAudience() {
                 {/* основной клик — на страницу направления */}
                 <Link
                   href={i.href}
-                  className="card card--tint lift card--border block hover:shadow-md cursor-pointer h-full"
+                  className="card card--tint lift card--border block hover:shadow-md cursor-pointer"
                 >
                   <h3 className="font-semibold">{i.title}</h3>
                   <p className="text-secondary mt-1">{i.desc}</p>

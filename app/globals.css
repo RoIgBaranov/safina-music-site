@@ -591,3 +591,8 @@ h3 {
 .text-shadow-soft {
   text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
+
+/* ==== Audience cards: фикс для мобильных ==== */
+.audience .grid { align-items: stretch; }               /* растягиваем ячейки грида */
+.audience .card { display: flex; flex-direction: column; height: 100%; }
+.audience .card .aud-cta { margin-top: auto; }          /* CTA уезжает вниз карточки */
