@@ -2,22 +2,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getGalleryImages } from "@/lib/cloudinary";
 
-type Section = "lessons" | "concerts" | "backstage";
+// В Next 15 context.params является Promise.
+// Такая сигнатура совместима и с 15-й, и с предыдущими версиями.
+export async function GET(
+  _req: NextRequest,
+  context: { params: Promise<{ section: string }> }
+) {
+  const { section } = await context.params;
 
-export async function GET(_req: NextRequest, context: any) {
-  // В Next 15 context.params — Promise; в 13/14 — обычный объект.
-  // await безопасно и для того, и для другого.
-  const { section } = await context.params as { section?: string };
-
-  if (!section || !["lessons", "concerts", "backstage"].includes(section)) {
+  if (section !== "lessons" && section !== "concerts" && section !== "backstage") {
     return NextResponse.json({ error: "Invalid section" }, { status: 400 });
   }
 
   try {
-    const sec = section as Section;
-    const items = await getGalleryImages(sec);
+    const items = await getGalleryImages(section as "lessons" | "concerts" | "backstage");
     return NextResponse.json({
-      section: sec,
+      section,
       count: items.length,
       items,
       nextCursor: null,
@@ -30,5 +30,5 @@ export async function GET(_req: NextRequest, context: any) {
   }
 }
 
-// Явно фиксируем Node runtime (Buffer нужен для Basic auth к Cloudinary)
+// Нужен Node runtime (Buffer используется в cloudinary helper)
 export const runtime = "nodejs";
