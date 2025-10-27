@@ -103,7 +103,7 @@ export default function ContactPage() {
           <div className="mt-4 rounded-2xl overflow-hidden card--border" style={{ aspectRatio: "16 / 9" }}>
             <iframe
               title="Карта: Holon, Israel"
-              src="https://www.google.com/maps?q=Holon,Israel&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3383.098788805216!2d34.797980599999995!3d32.0124376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b4c6add71da9%3A0xd339b217ec4083c2!2sHaOrgim%201%2C%20Holon!5e0!3m2!1sru!2sil!4v1760587861679!5m2!1sru!2sil"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full"

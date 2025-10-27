@@ -23,13 +23,21 @@ export default function CarouselGroup({ items, delayMs = 3500 }: Props) {
   const [active, setActive] = useState<0 | 1 | 2>(0);
 
   const reduce = useMemo(
-    () => (typeof window !== "undefined"
-      ? window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
-      : false),
+    () =>
+      typeof window !== "undefined"
+        ? window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
+        : false,
     []
   );
 
-  const timerRef = useRef<number | null>(null);
+  // ⬇️ вместо setInterval используем «одноразовый» таймер
+  const timeoutRef = useRef<number | null>(null);
+  const clearTimer = () => {
+    if (timeoutRef.current !== null) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
 
   // Если у текущей карусели 0 или 1 кадр — мгновенно передаём эстафету дальше
   useEffect(() => {
@@ -40,43 +48,47 @@ export default function CarouselGroup({ items, delayMs = 3500 }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
-  // Основная эстафета
+  // Главная логика авто-переключения с «перезапуском» таймера
   useEffect(() => {
-    if (reduce) return;          // уважение reduce motion
-    const run = () => {
-      const n = items[active].images.length;
-      if (n <= 1) {
-        setActive(((active + 1) % 3) as 0 | 1 | 2);
-        return;
-      }
+    if (reduce) return; // уважение reduce motion
+    clearTimer();
+
+    const n = items[active].images.length;
+    if (n <= 1) return;
+
+    // Запланировать переключение РОВНО через delayMs
+    timeoutRef.current = window.setTimeout(() => {
       setIdx((prev) => {
         const next = [...prev] as [number, number, number];
         const nextIndex = (prev[active] + 1) % n;
         next[active] = nextIndex;
-        // если замкнули круг (вернулись на 0) — передаём ход следующей
+        // если замкнули круг — передаём ход следующей карусели
         if (nextIndex === 0) {
           setActive(((active + 1) % 3) as 0 | 1 | 2);
         }
         return next;
       });
-    };
-    timerRef.current = window.setInterval(run, delayMs) as unknown as number;
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-  }, [active, items, delayMs, reduce]);
+    }, delayMs) as unknown as number;
+
+    // очистка таймера при любом изменении зависимостей/анмаунте
+    return clearTimer;
+    // ВАЖНО: когда пользователь вручную меняет кадр в активной карусели,
+    // меняется idx[active] → эффект пересоздаст таймер с полной задержкой.
+    // Поэтому завязываемся именно на «текущий индекс активной карусели».
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, items, delayMs, reduce, idx[active]]);
 
   // Когда пользователь вручную листает конкретную карусель — отдаём ей ход
+  // и сбрасываем таймер на полную задержку (это произойдёт автоматически,
+  // т.к. изменится idx[active] или active).
   const handleChange = (which: 0 | 1 | 2) => (val: number) => {
     setIdx((prev) => {
       const next = [...prev] as [number, number, number];
       next[which] = val;
       return next;
     });
-    setActive(which);
+    setActive(which); // если пользователь листает уже активную — active не поменяется,
+    // но idx[active] изменится → таймер перезапустится эффектом выше.
   };
 
   return (

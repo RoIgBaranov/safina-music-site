@@ -3,6 +3,9 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Carousel from "@/components/Carousel";
 import CarouselGroup from "@/components/CarouselGroup";
+import HomePrices from "@/components/home/HomePrices";
+import HomeAudience from "@/components/home/HomeAudience";
+
 import {
   MicIcon,
   MusicIcon,
@@ -62,10 +65,10 @@ export default function HomePage() {
 
         {/* Основной контент HERO */}
         <div className="container-max relative z-10 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-          {/* Левая колонка: заголовок, текст, кнопки, пункты */}
+          {/* Левая колонка */}
           <Reveal>
-            <div>
-              <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+            <div className="mobile-scrim">
+              <h1 className="text-3xl md:text-5xl font-extrabold leading-tight ">
                 Музыкальная школа в&nbsp;Холоне —{" "}
                 <span className="text-[var(--brand-500)]">вокал</span>,
                 фортепиано, гитара
@@ -92,8 +95,8 @@ export default function HomePage() {
               </ul>
             </div>
           </Reveal>
-          {/* Правая колонка: место под фото (пока заглушка) */}
 
+          {/* Правая колонка: фото */}
           <div className="relative aspect-[4/3]">
             <Image
               src="/images/hall.jpg"
@@ -109,68 +112,43 @@ export default function HomePage() {
 
       {/* ===== Мини-галерея: 3 карусели ===== */}
       <CarouselGroup
-  items={[
-    {
-      title: "Фото с занятий",
-      href: "/gallery#lessons",
-      images: [
-        "/images/gallery-lessons-1.JPG",
-        "/images/gallery-lessons-2.png",
-        "/images/gallery-lessons-3.png",
-      ],
-    },
-    {
-      title: "Фото с концертов",
-      href: "/gallery#concerts",
-      images: [
-        "/images/gallery-concerts-1.png",
-        "/images/gallery-concerts-2.png",
-        "/images/gallery-concerts-3.png",
-      ],
-    },
-    {
-      title: "Бекстейдж",
-      href: "/gallery#backstage",
-      images: [
-        "/images/gallery-backstage-1.png",
-        "/images/gallery-backstage-2.png",
-        "/images/gallery-backstage-3.png",
-      ],
-    },
-  ]}
-/>
+        items={[
+          {
+            title: "Фото с занятий",
+            href: "/gallery#lessons",
+            images: [
+              "/images/gallery-lessons-1.JPG",
+              "/images/gallery-lessons-2.png",
+              "/images/gallery-lessons-3.png",
+            ],
+          },
+          {
+            title: "Фото с концертов",
+            href: "/gallery#concerts",
+            images: [
+              "/images/gallery-concerts-1.png",
+              "/images/gallery-concerts-2.png",
+              "/images/gallery-concerts-3.png",
+            ],
+          },
+          {
+            title: "Бекстейдж",
+            href: "/gallery#backstage",
+            images: [
+              "/images/gallery-backstage-1.png",
+              "/images/gallery-backstage-2.png",
+              "/images/gallery-backstage-3.png",
+            ],
+          },
+        ]}
+      />
 
-
-      {/* ===== ДЛЯ КОГО ===== */}
+      {/* ===== ДЛЯ КОГО (заменено на HomeAudience) ===== */}
       <section className="section-topline">
         <div className="container-max py-14">
-          <h2 className="section-title text-muted">Для кого подойдёт</h2>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-muted">
-            {audience.map((c, i) => (
-              <Reveal
-                key={c.title}
-                className={`reveal ${
-                  i === 1
-                    ? "reveal-delay-1"
-                    : i === 2
-                    ? "reveal-delay-2"
-                    : i === 3
-                    ? "reveal-delay-3"
-                    : ""
-                }`}
-              >
-                <div className="card card--tint lift card--border">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#2e3353] bg-white/5 text-white/90">
-                      {c.icon}
-                    </span>
-                    <h3 className="font-semibold">{c.title}</h3>
-                  </div>
-                  <p className="text-secondary mt-3">{c.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal>
+            <HomeAudience />
+          </Reveal>
         </div>
       </section>
 
@@ -183,7 +161,6 @@ export default function HomePage() {
           </p>
 
           <div className="mt-6 grid sm:grid-cols-2 gap-6">
-            {/* Карточка 1 — подставим реальное имя и факты позже */}
             <div className="card card--tint lift card--border flex gap-4">
               <img
                 src="/images/maria.jpg"
@@ -205,7 +182,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Карточка 2 — второй педагог/направление */}
             <div className="card card--tint lift card--border flex gap-4">
               <img
                 src="/images/katya.jpg"
@@ -229,50 +205,13 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ===== ЦЕНЫ (превью) ===== */}
+      {/* ===== ЦЕНЫ (заменено на HomePrices) ===== */}
       <section className="section-topline">
-        <Reveal className="container-max py-14">
-          <h2 className="section-title text-muted">Цены и форматы</h2>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-muted">
-            {[
-              {
-                title: "Пробный урок",
-                price: "₪90",
-                desc: "30–45 минут",
-                Icon: TicketIcon,
-              },
-              {
-                title: "Индивидуальный",
-                price: "₪180",
-                desc: "45–60 минут",
-                Icon: UserIcon,
-              },
-              {
-                title: "Мини-группа",
-                price: "₪120",
-                desc: "за человека",
-                Icon: UsersIcon,
-              },
-            ].map(({ title, price, desc, Icon }) => (
-              <Reveal key={title} className="reveal">
-                <div className="card card--tint lift card--border">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-[#2e3353] bg-white/5 text-white/90">
-                      <Icon />
-                    </span>
-                    <h3 className="font-semibold">{title}</h3>
-                  </div>
-                  <p className="text-2xl font-extrabold mt-2 text-white">
-                    {price}
-                  </p>
-                  <p className="text-secondary">{desc}</p>
-                  {/* по желанию: */}
-                  {/* <Link href="/pricing" className="btn btn-outline mt-3">Подробнее</Link> */}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Reveal>
+        <div className="container-max py-14">
+          <Reveal>
+            <HomePrices />
+          </Reveal>
+        </div>
       </section>
 
       {/* ===== КАРТА ===== */}
@@ -284,8 +223,6 @@ export default function HomePage() {
           </p>
 
           <div className="mt-6 rounded-2xl overflow-hidden border">
-            {/* ЗАМЕНИ src на ваш адрес (Google Maps → Поделиться → Встроить карту → скопируй <iframe ...>) */}
-
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3383.098788805216!2d34.797980599999995!3d32.0124376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b4c6add71da9%3A0xd339b217ec4083c2!2sHaOrgim%201%2C%20Holon!5e0!3m2!1sru!2sil!4v1760587861679!5m2!1sru!2sil"
               height="360"

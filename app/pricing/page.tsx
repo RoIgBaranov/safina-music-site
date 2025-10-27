@@ -4,28 +4,19 @@ import {
   UsersIcon,
   ChevronDownIcon,
 } from "@/components/Icons";
+import WaCta from "@/components/WaCta";
 
 export const metadata = {
   title: "Цены — Safina Music School",
   description:
-    "Пробный ₪90, индивидуальные ₪180, мини-группа ₪120. Правила переносов и заморозок.",
-  alternates: { canonical: "/pricing" },
-  openGraph: {
-    title: "Цены — Safina Music School",
-    description:
-      "Актуальные цены и форматы: пробный, индивидуальные, мини-группы. Холон.",
-    url: "/pricing",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Цены — Safina Music School",
-    description:
-      "Пробный, индивидуальные и мини-группы. Посмотрите форматы и стоимость.",
-    images: ["/twitter-image.png"],
-  },
+    "Пробный, индивидуальные занятия, мини-группы. Правила переносов и заморозок абонемента.",
 };
 
+// утилита для wa.me
+function buildWaLink(phone: string, text: string) {
+  const clean = (phone || "").replace(/[^\d+]/g, "").replace("+", "");
+  return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
+}
 
 const tariffs = [
   {
@@ -50,26 +41,9 @@ const rules = [
   "Оплата — наличными/переводом в день занятия или авансом за абонемент.",
 ];
 
-const faq = [
-  {
-    q: "Сколько длится занятие?",
-    a: "Обычно 45–60 минут. Пробный — 30–45 минут.",
-  },
-  {
-    q: "Как часто лучше заниматься?",
-    a: "Стартово 1 раз в неделю + короткие домашние 10–15 минут.",
-  },
-  {
-    q: "Можно ли менять преподавателя?",
-    a: "Да, по согласованию — важно чувствовать комфорт и прогресс.",
-  },
-  {
-    q: "Есть ли онлайн-занятия?",
-    a: "Возможны по запросу, но живые обычно эффективнее.",
-  },
-];
-
 export default function PricingPage() {
+  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "+972501234567";
+
   return (
     <section className="container-max py-14">
       <h1 className="section-title">Цены и абонементы</h1>
@@ -77,21 +51,48 @@ export default function PricingPage() {
         Выберите формат, а если сомневаетесь — приходите на пробный урок.
       </p>
 
-      {/* Тарифы */}
+      {/* Тарифы → кликабельные карточки с переходом в WhatsApp */}
       <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tariffs.map(({ title, price, desc, icon: Icon }) => (
-          <div key={title} className="card card--tint lift card--border">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-[#2e3353] bg-white/5 text-white/90">
-                <Icon />
+        {tariffs.map(({ title, price, desc, icon: Icon }) => {
+          const slug =
+            title === "Пробный урок"
+              ? "trial"
+              : title === "Индивидуальный"
+              ? "individual"
+              : "group";
+
+          const msg = `Привет! Хочу записаться на ${title.toLowerCase()}. Удобное время: _____.`;
+          const href = buildWaLink(phone, msg);
+
+          return (
+            <a
+              id={slug} // ← якорь для /pricing#trial|individual|group
+              key={title}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card card--tint lift card--border block hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]"
+              aria-label={`Записаться в WhatsApp: ${title}`}
+              title={`Записаться в WhatsApp: ${title}`}
+            >
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-[#2e3353] bg-white/5 text-white/90">
+                  <Icon />
+                </span>
+                <h3 className="font-semibold">{title}</h3>
+              </div>
+              <p className="text-2xl font-extrabold mt-2 text-white">{price}</p>
+              <p className="text-secondary">{desc}</p>
+
+              {/* подсказка внизу карточки */}
+              <span className="mt-3 inline-block text-[var(--brand)] text-sm">
+                Написать в WhatsApp →
               </span>
-              <h3 className="font-semibold">{title}</h3>
-            </div>
-            <p className="text-2xl font-extrabold mt-2 text-white">{price}</p>
-            <p className="text-secondary">{desc}</p>
-          </div>
-        ))}
+            </a>
+          );
+        })}
       </div>
+
       <div className="hr" />
 
       {/* Правила */}
@@ -135,6 +136,11 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+      <div className="mt-8">
+              <WaCta message="Привет! Хочу записаться на пробный урок вокала (взрослый). Удобное время: _____.">
+                Записаться на пробный
+              </WaCta>
+            </div>
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
+import MobileMenuModal from "@/components/MobileMenuModal";
 
 /** wa.me линк */
 function buildWhatsAppLink(phone: string, text: string) {
@@ -43,10 +44,7 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Блокируем скролл боди, когда открыт оверлей
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-  }, [open]);
+ 
 
   return (
     <header
@@ -137,9 +135,9 @@ export const Header: React.FC = () => {
           className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border hover:bg-gray-50/5 transition"
           aria-label="Открыть меню"
           aria-expanded={open}
+          aria-controls="mobile-menu-modal"
           onClick={() => setOpen((v) => !v)}
         >
-          {/* Иконка-гамбургер/крестик */}
           <span className="relative block w-5 h-3">
             <span
               className={`absolute block h-0.5 w-5 bg-white transition-transform duration-300 ${
@@ -160,71 +158,14 @@ export const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Мобильное меню-оверлей */}
-      {open && (
-        <div
-          className="md:hidden fixed inset-0 z-40"
-          role="dialog"
-          aria-modal="true"
-          onClick={() => setOpen(false)}
-        >
-          {/* затемнение фона */}
-          <div className="absolute inset-0 bg-black/30" />
+      {/* 👉 Наше модальное меню (рендерится поверх всего) */}
+      <MobileMenuModal
+        open={open}
+        onClose={() => setOpen(false)}
+        waLink={waLink}
+      />
 
-          {/* панель меню */}
-          <div
-            className="absolute right-0 top-0 h-full w-[80%] max-w-xs bg-[#12142a] border-l border-[#1e2240] shadow-xl p-6 animate-[slideIn_.25s_ease]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <nav className="grid gap-4 text-base">
-              <Link
-                href="/directions"
-                className="menu-link hover:text-[var(--brand)]"
-                onClick={() => setOpen(false)}
-              >
-                Направления
-              </Link>
-              <Link
-                href="/teachers"
-                className="menu-link hover:text-[var(--brand)]"
-                onClick={() => setOpen(false)}
-              >
-                Преподаватели
-              </Link>
-              <Link
-                href="/pricing"
-                className="menu-link hover:text-[var(--brand)]"
-                onClick={() => setOpen(false)}
-              >
-                Цены
-              </Link>
-              <Link
-                href="/gallery"
-                className="menu-link hover:text-[var(--brand)]"
-                onClick={() => setOpen(false)}
-              >
-                Галерея
-              </Link>
-              <Link
-                href="/contact"
-                className="menu-link hover:text-[var(--brand)]"
-                onClick={() => setOpen(false)}
-              >
-                Контакты
-              </Link>
-            </nav>
-
-            <a
-              href={waLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block w-full text-center btn btn-primary-calm"
-            >
-              Записаться в WhatsApp
-            </a>
-          </div>
-        </div>
-      )}
+     
       {/* keyframes для боковой панели */}
       <style>
         {`@keyframes slideIn {

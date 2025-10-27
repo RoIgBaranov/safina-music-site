@@ -41,6 +41,7 @@
 html,
 body {
   height: 100%;
+  font-size: clamp(16px, 0.9vw + 14px, 18px);
 }
 
 body {
@@ -61,11 +62,8 @@ body {
 }
 
 .container-max {
-  /* ширина контента и центрирование */
-  max-width: 72rem; /* ≈ Tailwind max-w-6xl */
+  max-width: 80rem; /* было 72rem; ≈ 1280px → 1280→1360px */
   margin-inline: auto;
-
-  /* адаптивные боковые поля: 16px → 32px в зависимости от экрана */
   padding-inline: clamp(16px, 4vw, 32px);
 }
 
@@ -568,3 +566,28 @@ h3 {
 /* скрыть горизонтальный скроллбар у лент */
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Подложка для контраста на мобилке */
+.mobile-scrim {
+  background: linear-gradient(180deg, rgba(15,17,32,0.86), rgba(15,17,32,0.78));
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem; /* ~ px-4 py-3 */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* На md и выше скрим не нужен — убираем подчистую */
+@media (min-width: 768px) {
+  .mobile-scrim {
+    background: transparent !important;
+    border-color: transparent !important;
+    padding: 0 !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Доп. усиление читаемости (деликатная тень у текста) */
+.text-shadow-soft {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
