@@ -4,11 +4,10 @@ import { getGalleryImages } from "@/lib/cloudinary";
 
 type Section = "lessons" | "concerts" | "backstage";
 
-export async function GET(
-  _req: NextRequest,
-  ctx: { params: Promise<{ section: string }> } // ⬅ params теперь Promise
-) {
-  const { section } = await ctx.params; // ⬅ распаковываем
+export async function GET(_req: NextRequest, context: any) {
+  // В Next 15 context.params — Promise; в 13/14 — обычный объект.
+  // await безопасно и для того, и для другого.
+  const { section } = await context.params as { section?: string };
 
   if (!section || !["lessons", "concerts", "backstage"].includes(section)) {
     return NextResponse.json({ error: "Invalid section" }, { status: 400 });
@@ -30,3 +29,6 @@ export async function GET(
     );
   }
 }
+
+// Явно фиксируем Node runtime (Buffer нужен для Basic auth к Cloudinary)
+export const runtime = "nodejs";
