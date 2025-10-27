@@ -2,14 +2,17 @@
 import { NextResponse } from "next/server";
 import { getGalleryImages } from "@/lib/cloudinary";
 
+type Section = "lessons" | "concerts" | "backstage";
+
 export async function GET(
   _req: Request,
-  { params }: { params: { section: string } }
+  { params }: { params: { section: Section } }
 ) {
-  const section = params.section as "lessons" | "concerts" | "backstage";
-  if (!["lessons", "concerts", "backstage"].includes(section)) {
+  const section = params?.section;
+
+  if (!section || !["lessons", "concerts", "backstage"].includes(section)) {
     return NextResponse.json({ error: "Invalid section" }, { status: 400 });
-    }
+  }
 
   try {
     const items = await getGalleryImages(section);
